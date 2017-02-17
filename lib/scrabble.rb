@@ -23,6 +23,12 @@ class Scrabble
     score * word_multiplier
   end
 
+  def highest_scoring_word(words)
+    words.max do |word1, word2|
+      score(word1) <=> score(word2)
+    end
+  end
+
   def point_values
     {
       "A"=>1, "B"=>3, "C"=>3, "D"=>2,
