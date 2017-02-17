@@ -1,9 +1,11 @@
 class Scrabble
 
-  def score(word)
+  def score(word, multiplier = Array.new(word.nil? ? 0 : word.length) { |i| i = 1  })
     return 0 if word.nil? || word.empty?
-    word.upcase.chars.map do |letter|
-      point_values[letter]
+    return -1 if word.length != multiplier.length
+
+    word.upcase.chars.map.with_index do |letter, index|
+      point_values[letter] * multiplier[index]
     end.reduce(:+)
   end
 
