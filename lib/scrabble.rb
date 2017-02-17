@@ -9,8 +9,8 @@ class Scrabble
   end
 
   def score_with_multipliers(word,
-                            letter_multiplier = Array.new(word.nil? ? 0 : word.length) { |i| i = 1  },
-                            word_multiplier=1)
+                             letter_multiplier = Array.new(word.nil? ? 0 : word.length) { |i| i = 1  },
+                             word_multiplier=1)
     return 0 if word.nil? || word.empty?
     return -1 if word.length != letter_multiplier.length
 
@@ -25,7 +25,11 @@ class Scrabble
 
   def highest_scoring_word(words)
     words.max do |word1, word2|
-      score(word1) <=> score(word2)
+      if score(word1) == score(word2)
+        word2.length <=> word1.length
+      else
+        score(word1) <=> score(word2)
+      end
     end
   end
 
