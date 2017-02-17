@@ -14,9 +14,13 @@ class Scrabble
     return 0 if word.nil? || word.empty?
     return -1 if word.length != letter_multiplier.length
 
-    word.upcase.chars.map.with_index do |letter, index|
+    score_bonus = word.length >= 7 ? 10 : 0
+
+    score = word.upcase.chars.map.with_index do |letter, index|
       point_values[letter] * letter_multiplier[index]
-    end.reduce(:+) * word_multiplier
+    end.reduce(:+)
+    score += score_bonus
+    score * word_multiplier
   end
 
   def point_values
