@@ -5,22 +5,33 @@ require 'minitest/emoji'
 require 'pry'
 
 class ScrabbleTest < Minitest::Test
+
+  attr_reader :game
+
+  def setup
+    @game = Scrabble.new
+  end
+
   def test_it_can_score_a_single_letter
-    assert_equal 1, Scrabble.new.score("a")
-    assert_equal 4, Scrabble.new.score("f")
+    assert_equal 1, game.score("a")
+    assert_equal 4, game.score("f")
   end
 
   def test_it_can_score_a_word
-    assert_equal 8, Scrabble.new.score("hello")
-    assert_equal 0, Scrabble.new.score("")
+    assert_equal 8, game.score("hello")
+    assert_equal 0, game.score("")
   end
 
   def test_it_can_handle_nil
-    assert_equal 0, Scrabble.new.score(nil)
+    assert_equal 0, game.score(nil)
   end
 
   def test_it_can_multiply_letter_scores
-    assert_equal 9, Scrabble.new.score_with_multipliers("hello", [1,2,1,1,1])
-    assert_equal -1, Scrabble.new.score_with_multipliers("hello", [1,2,1,1])
+    assert_equal 9, game.score_with_multipliers("hello", [1,2,1,1,1])
+    assert_equal -1, game.score_with_multipliers("hello", [1,2,1,1])
   end
+
+  def test_it_can_multiply_word_scores
+   assert_equal 18, game.score_with_multipliers('hello', [1,2,1,1,1], 2)
+ end
 end
