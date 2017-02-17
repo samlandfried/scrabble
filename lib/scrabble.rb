@@ -24,11 +24,9 @@ class Scrabble
   end
 
   def highest_scoring_word(words)
-    words.max do |word1, word2|
-      if score(word1) == score(word2)
-        word2.length <=> word1.length
-      else
-        score(word1) <=> score(word2)
+    words.reduce do |best_word, word|
+      [best_word, word].max do |a, b|
+        score(a) <=> score(b)
       end
     end
   end

@@ -46,4 +46,8 @@ class ScrabbleTest < Minitest::Test
   def test_it_identifies_the_highest_scoring_word_with_the_least_letters
     assert_equal "word", game.highest_scoring_word(['hello', 'word', 'sound'])
   end
+
+  def test_it_identifies_the_highest_scoring_word_with_the_least_letters_unless_one_of_them_has_7_letters
+    assert_equal "silence",game.highest_scoring_word(['home', 'word', 'silence'])
+  end
 end
