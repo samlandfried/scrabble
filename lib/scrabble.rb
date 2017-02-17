@@ -25,8 +25,14 @@ class Scrabble
 
   def highest_scoring_word(words)
     words.reduce do |best_word, word|
-      [best_word, word].max do |a, b|
+      return [best_word, word].max do |a, b|
         score(a) <=> score(b)
+      end unless score(best_word) == score(word)
+      return [best_word, word].max do |a, b|
+        b.length <=> a.length
+      end unless best_word.length >= 7 || word.length >= 7
+      return [best_word, word].max do |a, b|
+        a.length <=> b.length
       end
     end
   end
