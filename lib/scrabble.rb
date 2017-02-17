@@ -1,12 +1,22 @@
 class Scrabble
 
-  def score(word, multiplier = Array.new(word.nil? ? 0 : word.length) { |i| i = 1  })
+  def score(word)
     return 0 if word.nil? || word.empty?
-    return -1 if word.length != multiplier.length
+
+    word.upcase.chars.map do |letter|
+      point_values[letter]
+    end.reduce(:+)
+  end
+
+  def score_with_multipliers(word,
+                            letter_multiplier = Array.new(word.nil? ? 0 : word.length) { |i| i = 1  },
+                            word_multiplier=1)
+    return 0 if word.nil? || word.empty?
+    return -1 if word.length != letter_multiplier.length
 
     word.upcase.chars.map.with_index do |letter, index|
-      point_values[letter] * multiplier[index]
-    end.reduce(:+)
+      point_values[letter] * letter_multiplier[index]
+    end.reduce(:+) * word_multiplier
   end
 
   def point_values
